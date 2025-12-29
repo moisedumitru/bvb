@@ -1,0 +1,5 @@
+1.Deschid Folderul Tradeville cu Visual Code
+2.Deschid fisierul server.js
+3.Apas pe Run
+4.in fereastra de Output de la VS trebuie sa apara un mesaj: Server is running on port 3000.
+5. Deschid index.html in browser cu Live server

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <title>Rebalansare BET</title>
+</head>
+<body>
+
+<h2>Rebalansare portofoliu BET</h2>
+
+<label>User TradeVille</label><br>
+<input type="text" id="username"><br><br>
+
+<label>Parolă TradeVille</label><br>
+<input type="password" id="password"><br><br>
+
+<label>Suma disponibilă</label><br>
+<input type="number" id="moneyToSpend" value="1000"><br><br>
+
+<label>Ordin minim</label><br>
+<input type="number" id="minOrder" value="300"><br><br>
+
+<label>Comision</label><br>
+<input type="number" id="feePerOrder" value="3"><br><br>
+
+<button id="btn">Generează</button>
+
+<p id="status"></p>
+
+<script>
+document.getElementById("btn").addEventListener("click", async () => {
+  document.getElementById("status").innerText = "Se procesează...";
+
+  console.log("CLICK detectat");
+
+  try {
+    const res = await fetch("/run", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        username: document.getElementById("username").value,
+        password: document.getElementById("password").value,
+        moneyToSpend: document.getElementById("moneyToSpend").value,
+        minOrder: document.getElementById("minOrder").value,
+        feePerOrder: document.getElementById("feePerOrder").value
+      })
+    });
+
+    const data = await res.json();
+    document.getElementById("status").innerText = data.ok
+      ? "CSV generat ✔"
+      : data.error;
+
+  } catch (err) {
+    document.getElementById("status").innerText = "Eroare la request";
+    console.error(err);
+  }
+});
+</script>
+
+</body>
+</html>
